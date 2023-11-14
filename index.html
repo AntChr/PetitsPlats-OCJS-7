@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="./dist/output.css" rel="stylesheet">
+    <title>Vite App</title>
+  </head>
+  <header>
+    <div class="header">
+      <div class="logo">
+        <img src="./images/logo.svg" class="logo__title" alt="logo"/>
+        <img src="./images/logocircle.svg" class="logo__title__circle" alt="logocircle"/>
+      </div>
+      <div class="title__research">
+        <h1>
+          CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES
+        </h1>
+        <div class="research">
+        <input type="search" class="research__bar" placeholder="Rechercher une recette, un ingrédient, ...">
+        <button type="submit" title="submit research" class="button__research">
+          <img src="./images/search.svg" alt="logo research" class="logo__research"/>
+        </button>
+        <button type="reset" title="clear research" class="button__clear">
+          <img src="./images/clear.svg" alt="logo clear" class="logo__clear"/>
+        </button>
+      </div>
+      </div>
+    </div>
+  </header>
+  <body>
+    <div id="app">
+      <div class="recipes__list">
+      </div>
+    </div>
+  </body>
+  <script type="module" src="./main.js"></script>
+</html>
