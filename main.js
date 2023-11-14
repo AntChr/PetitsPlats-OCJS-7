@@ -1,7 +1,5 @@
 import { recipes } from './data/recipes';
 import { displayRecipes } from './src/js/displayrecipes';
+import { recipesList } from './src/js/domlinker';
 
-document.addEventListener('DOMContentLoaded', () => {
-    const recipesList = document.querySelector('.recipes__list');
-    displayRecipes(recipes, recipesList);
-  });
+displayRecipes(recipes, recipesList);

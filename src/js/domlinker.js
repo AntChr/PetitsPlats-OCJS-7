@@ -1,0 +1,1 @@
+export const recipesList = document.querySelector('.recipes__list');
