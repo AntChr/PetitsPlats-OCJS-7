@@ -268,7 +268,7 @@ const recipes = [
         "ingredients":[
            {
                 "ingredient": "Noix",
-                "quantity": "180",
+                "quantity": 180,
                 "unit": "grammes"
            },
            {
@@ -287,7 +287,7 @@ const recipes = [
            },
            {
                "ingredient": "Sucre en Poudre",
-               "quantity": "110",
+               "quantity": 110,
                "unit": "grammes"
            },
            {

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300&family=Rubik:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Manrope&family=Montserrat:wght@300&family=Rubik:wght@400;500;700&display=swap');
 
 .header {
   width: 100%;
@@ -36,6 +37,7 @@ h1 {
   width: 954px;
   height: 72px;
   border-radius: 11px;
+  padding-left: 30px;
 }
 .research__bar::placeholder {
   padding-left: 30px;
@@ -114,6 +116,10 @@ h1 {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+
+  height: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .recipe__time {
@@ -129,4 +135,35 @@ h1 {
 
   border-radius: 14px;
   background:#FFD15B;
+}
+
+.recipe__ingredients__container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 100px;
+  grid-row-gap: 20px;
+
+  padding: 0px 25px;
+}
+
+
+.recipe__ingredients__container__ingredient p {
+  margin: 0px;
+  height: 20px;
+  color: #1B1B1B;
+  font-family: Manrope;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.ingredient__quantity span {
+  color: #7A7A7A;
+  font-family: Manrope;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
