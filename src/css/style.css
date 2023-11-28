@@ -61,13 +61,50 @@ h1 {
   right: 30%;
   top: 45.5%;
 }
-
+.filter__total {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 102px 0px 102px;
+  background: #EDEDED;
+}
+.filter__total h3 {
+  display: flex;
+  align-items: center;
+}
+.filter__container{
+  display: flex;
+}
+.filter__dropdown {
+  display: inline-flex;
+  padding: 17px 16px;
+  align-items: center;
+  margin-right: 66px;
+  border-radius: 11px;
+  background-color: #FFF;
+}
 .recipes__list {
   display: flex;
   flex-wrap: wrap;
   gap: 48px;
   padding: 100px;
   background: #EDEDED;
+}
+
+.emptyTitle {
+  font-family: 'Anton', sans-serif;
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.totalRecipes {
+  color: var(--Black, #1B1B1B);
+  font-family: Anton;
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 .recipe__container {
   position: relative;
