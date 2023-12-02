@@ -3,3 +3,7 @@ export const researchbar = document.querySelector('.research__bar');
 export const filterTotal = document.querySelector('.filter__total');
 export const totalrecipes = document.querySelector('.totalRecipes');
 export const filterContainer = document.querySelector('.filter__container');
+export const filterIngredients = document.querySelector('.filter__container__ingredients');
+export const filterUstensils = document.querySelector('.filter__container__ustensiles');
+export const filterAppareils = document.querySelector('.filter__container__appareils');
+export const h3TotalRecipes = document.querySelector('.totalRecipes');

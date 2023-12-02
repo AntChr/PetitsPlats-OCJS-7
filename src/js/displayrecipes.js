@@ -1,9 +1,13 @@
+import { recipesList } from "./domlinker";
 
-function displayRecipes(recipes, container) {
+function displayRecipes(recipes) {
+
+    recipesList.innerHTML = ''
+
     if (recipes.length === 0) {
         console.log('Aucune recette à afficher.');
         return;
-      }
+    }
     recipes.forEach((recipe => {
 
         const recipeContainer = document.createElement('div');
@@ -46,28 +50,28 @@ function displayRecipes(recipes, container) {
 
             const ingredientQuantityUnit = document.createElement('span')
 
-            switch(ingredient.unit) {
-                case "ml" :
-                ingredientQuantityUnit.textContent = "ml"
-                break;
-                case "cl" :
-                ingredientQuantityUnit.textContent = "cl"
-                break;
-                case "" :
-                ingredientQuantityUnit.textContent = ""
-                break;
-                case "cuillères à soupe" :
-                ingredientQuantityUnit.textContent = " cuillères"
-                break;
-                case "grammes" :
-                ingredientQuantityUnit.textContent = "g"
-                break;
-                case "kg" :
-                ingredientQuantityUnit.textContent = "kg"
-                break;
-                case "sachets" :
-                ingredientQuantityUnit.textContent = "sachets"
-                break;
+            switch (ingredient.unit) {
+                case "ml":
+                    ingredientQuantityUnit.textContent = "ml"
+                    break;
+                case "cl":
+                    ingredientQuantityUnit.textContent = "cl"
+                    break;
+                case "":
+                    ingredientQuantityUnit.textContent = ""
+                    break;
+                case "cuillères à soupe":
+                    ingredientQuantityUnit.textContent = " cuillères"
+                    break;
+                case "grammes":
+                    ingredientQuantityUnit.textContent = "g"
+                    break;
+                case "kg":
+                    ingredientQuantityUnit.textContent = "kg"
+                    break;
+                case "sachets":
+                    ingredientQuantityUnit.textContent = "sachets"
+                    break;
             }
 
             ingredientQuantity.appendChild(ingredientQuantityNumber);
@@ -76,7 +80,7 @@ function displayRecipes(recipes, container) {
             ingredientContainer.appendChild(ingredientQuantity);
 
             ingredientsContainer.appendChild(ingredientContainer);
-            
+
         }))
 
         const timecook = document.createElement('span');
@@ -91,9 +95,9 @@ function displayRecipes(recipes, container) {
         recipeContainer.appendChild(timecook);
         recipeContainer.appendChild(ingredientsContainer);
 
-        
 
-        container.appendChild(recipeContainer);
+
+        recipesList.appendChild(recipeContainer);
     }))
 }
 

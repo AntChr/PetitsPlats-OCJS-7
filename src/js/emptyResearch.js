@@ -1,10 +1,13 @@
+import { recipesList } from "./domlinker"
 
-function emptyResearch(container) {
+
+function emptyResearch() {
+    recipesList.innerHTML = ''
     const emptyTitle = document.createElement('h2')
     emptyTitle.classList.add('emptyTitle')
-    emptyTitle.textContent='Aucun résultat trouvé pour cette recherche'
+    emptyTitle.textContent = 'Aucun résultat trouvé pour cette recherche'
 
-    container.appendChild(emptyTitle)
+    recipesList.appendChild(emptyTitle)
 }
 
 export { emptyResearch }

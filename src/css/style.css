@@ -39,9 +39,6 @@ h1 {
   border-radius: 11px;
   padding-left: 30px;
 }
-.research__bar::placeholder {
-  padding-left: 30px;
-}
 .button__research {
   position: absolute;
   right: 26%;

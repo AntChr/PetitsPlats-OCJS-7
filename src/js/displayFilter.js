@@ -1,10 +1,15 @@
+function displayFilter(options, container, name) {
 
-function displayFilter(options, container) {
-const filterContainer = document.createElement('div');
-filterContainer.classList.add('filter');
+container.innerHTML='';
 
 const filterDropdown = document.createElement('select');
 filterDropdown.classList.add('filter__dropdown');
+
+const specificOption = document.createElement('option');
+  specificOption.setAttribute('class', 'filter__option');
+  specificOption.setAttribute('value', 'Specific Option');
+  specificOption.textContent = name;
+  filterDropdown.appendChild(specificOption);
 
 options.forEach((option => {
     const filterOption = document.createElement('option');
@@ -13,8 +18,7 @@ options.forEach((option => {
         filterOption.textContent = option.name;
         filterDropdown.appendChild(filterOption);
 }))
-filterContainer.appendChild(filterDropdown);
-container.appendChild(filterContainer);
+container.appendChild(filterDropdown);
 }
 
 export { displayFilter }

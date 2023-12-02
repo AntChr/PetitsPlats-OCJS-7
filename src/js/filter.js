@@ -1,12 +1,13 @@
 import { displayFilter } from "./displayfilter";
+import { filterIngredients, filterUstensils, filterAppareils } from "./domlinker";
 
-function filterOptions(recipes, container) {
+function filterOptions(recipes) {
     const ingredients = filterUniqueItems(recipes, 'ingredients');
     const ustensils = filterUniqueItems(recipes, 'ustensils');
     const appliance = filterUniqueItems(recipes, 'appliance');
-    displayFilter(ingredients, container);
-    displayFilter(ustensils, container);
-    displayFilter(appliance, container);
+    displayFilter(ingredients, filterIngredients, 'Ingrédients');
+    displayFilter(ustensils, filterUstensils, 'Ustensiles');
+    displayFilter(appliance, filterAppareils, 'Appareils');
 }
 
 const filterUniqueItems = (data, property) => {
@@ -33,4 +34,4 @@ const filterUniqueItems = (data, property) => {
     });
 }
 
-export { filterOptions };
+export { filterOptions};

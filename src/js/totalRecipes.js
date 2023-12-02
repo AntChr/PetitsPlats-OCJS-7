@@ -1,10 +1,8 @@
-function totalRecipes(recipes,container) {
+import { h3TotalRecipes } from "./domlinker"
 
-    const totalRecipes = document.createElement('h3')
-    totalRecipes.classList.add('totalRecipes')
-    totalRecipes.textContent=`${recipes.length} Recettes`
+function totalRecipes(recipes) {
 
-    container.appendChild(totalRecipes)
+    h3TotalRecipes.textContent = `${recipes.length} Recettes`
 }
 
 export { totalRecipes }
