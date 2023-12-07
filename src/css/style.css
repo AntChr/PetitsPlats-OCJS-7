@@ -32,7 +32,9 @@ h1 {
   font-weight: 400;
   line-height: normal;
 }
-
+.research {
+  position: relative;
+}
 .research__bar {
   width: 954px;
   height: 72px;
@@ -41,12 +43,15 @@ h1 {
 }
 .button__research {
   position: absolute;
-  right: 26%;
-  top: 43.5%;
+  right: 1%;
+  top: 12%;
   width: 51px;
   height: 52px;
   border-radius: 10px;
   background-color: #1B1B1B;
+}
+.button__research:active {
+  background-color: #FFD15B;
 }
 .logo__research {
   width: 27px;
@@ -54,9 +59,37 @@ h1 {
   margin: auto;
 }
 .logo__clear {
+  display: none;
   position: absolute;
-  right: 30%;
-  top: 45.5%;
+  right: 8%;
+  top: 40%;
+}
+.logo__clear.active {
+  display: block;
+}
+.tag__container {
+  display: flex;
+  padding: 30px 102px 0px 102px;
+  background: #EDEDED;
+}
+.tag {
+  display: inline-flex;
+  padding: 17px 18px;
+  align-items: center;
+  gap: 60px;
+  margin-right: 66px;
+  border-radius: 10px;
+  background: #FFD15B;
+}
+.tag i {
+  align-items: center;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 50%;
+}
+.tag i:hover {
+  color: #FFD15B;
+  background-color: #000;
 }
 .filter__total {
   display: flex;
@@ -78,6 +111,63 @@ h1 {
   margin-right: 66px;
   border-radius: 11px;
   background-color: #FFF;
+}
+.custom-dropdown {
+  position: relative;
+  width: 200px;
+  padding: 17px 16px; 
+  border-radius: 11px;
+  background: #FFF;
+  margin-right: 25px;
+}
+
+.dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  cursor: pointer;
+}
+.filter__search {
+  width: 163px;
+  height: 36px;
+  flex-shrink: 0;
+  margin: 11px 16px 11px 16px;
+  border-radius: 2px;
+  border: 1px solid var(--Light-Grey, #C6C6C6);
+}
+.dropdown-list {
+  display: none;
+  position: absolute;
+  top: 80%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 1;
+  border-bottom-left-radius: 11px;
+  border-bottom-right-radius: 11px;
+  
+}
+
+.dropdown-list.active {
+  display: block;
+
+}
+
+.dropdown-item {
+  padding: 5px 5px 5px 16px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #FFD15B;
+}
+.arrow-icon {
+  transition: transform 0.3s ease;
+}
+
+.arrow-icon.active {
+  transform: rotate(180deg);
 }
 .recipes__list {
   display: flex;

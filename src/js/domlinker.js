@@ -7,3 +7,6 @@ export const filterIngredients = document.querySelector('.filter__container__ing
 export const filterUstensils = document.querySelector('.filter__container__ustensiles');
 export const filterAppareils = document.querySelector('.filter__container__appareils');
 export const h3TotalRecipes = document.querySelector('.totalRecipes');
+export const tagContainer = document.querySelector('.tag__container');
+export const clear = document.querySelector('.button__clear');
+export const logoClear = document.querySelector('.logo__clear');
