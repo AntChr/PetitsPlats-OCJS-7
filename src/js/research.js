@@ -36,13 +36,13 @@ function filterRecipes (selectedOption, recipes) {
     updatedRecipes(filteredRecipes)
   };
 
-  function removeFilter(filterToRemove, recipes) {
+  function removeFilter(filterToRemove, recipes, searchTerm) {
     const index = appliedFilters.indexOf(filterToRemove);
 
     if (index !== -1) {
         appliedFilters.splice(index, 1);
 
-        const filteredRecipes = appliedFilters.length > 0 ? searchFilter(recipes, appliedFilters) : recipes;
+        const filteredRecipes = appliedFilters.length > 0 ? searchFilter(recipes, appliedFilters) : search(recipes, searchTerm);
 
         updatedRecipes(filteredRecipes)
 
@@ -70,12 +70,10 @@ const search = (data, searchTerm) => {
         const {
             recipeName,
             recipeDescription,
-            appliance,
             ingredients,
-            ustensils
         } = getRecipeFilters(recipe);
 
-        return recipeName.includes(searchTerm) || ingredients.includes(searchTerm) || recipeDescription.includes(searchTerm) || appliance.includes(searchTerm) || ustensils.includes(searchTerm);
+        return recipeName.includes(searchTerm) || ingredients.includes(searchTerm) || recipeDescription.includes(searchTerm);
     });
 };
 
