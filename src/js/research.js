@@ -6,49 +6,95 @@ import { displayTag } from "./displayTag";
 import { logoClear } from "./domlinker";
 
 let appliedFilters = [];
+
 function researchRecipes(searchTerm, recipes) {
     let filteredRecipes = recipes;
 
     if (appliedFilters.length > 0) {
-        filteredRecipes = searchFilter(recipes, appliedFilters);
+        filteredRecipes = [];
+        for (let i = 0; i < recipes.length; i++) {
+            const recipe = recipes[i];
+            const filters = getRecipeFilters(recipe);
+            const matchedFilters = appliedFilters.filter(filter => {
+                return filters.allFilters.some(filterable => filterable.includes(filter));
+            });
+
+            if (matchedFilters.length === appliedFilters.length) {
+                filteredRecipes.push(recipe);
+            }
+        }
     }
-    const matchingRecipes = searchTerm.length >= 3 ? search(filteredRecipes, searchTerm) : filteredRecipes
-    matchingRecipes.length === 0 ? emptyResearch() : displayRecipes(matchingRecipes)
-    totalRecipes(matchingRecipes)
+
+    const matchingRecipes = searchTerm.length >= 3 ? search(filteredRecipes, searchTerm) : filteredRecipes;
+    if (matchingRecipes.length === 0) {
+        emptyResearch();
+    } else {
+        displayRecipes(matchingRecipes);
+    }
+    totalRecipes(matchingRecipes);
     filterOptions(matchingRecipes);
-    if(searchTerm ==='') {
-        logoClear.classList.remove('active')
+    if (searchTerm === '') {
+        logoClear.classList.remove('active');
     }
 }
 
- function updatedRecipes (filteredRecipes) {
+function updatedRecipes(filteredRecipes) {
     displayRecipes(filteredRecipes);
     totalRecipes(filteredRecipes);
     filterOptions(filteredRecipes);
- }
-function filterRecipes (selectedOption, recipes) {
+}
+
+function filterRecipes(selectedOption, recipes) {
     if (!appliedFilters.includes(selectedOption)) {
         appliedFilters.push(selectedOption);
         displayTag(selectedOption);
-    } 
+    }
 
-    const filteredRecipes = searchFilter(recipes, appliedFilters);
-    updatedRecipes(filteredRecipes)
-  };
+    const filteredRecipes = [];
+    for (let i = 0; i < recipes.length; i++) {
+        const recipe = recipes[i];
+        const filters = getRecipeFilters(recipe);
+        const matchedFilters = appliedFilters.filter(filter => {
+            return filters.allFilters.some(filterable => filterable.includes(filter));
+        });
 
-  function removeFilter(filterToRemove, recipes, searchTerm) {
-    const index = appliedFilters.indexOf(filterToRemove);
+        if (matchedFilters.length === appliedFilters.length) {
+            filteredRecipes.push(recipe);
+        }
+    }
+
+    updatedRecipes(filteredRecipes);
+}
+
+function removeFilter(filterToRemove, recipes, searchTerm) {
+    let index = -1;
+    
+    for (let i = 0; i < appliedFilters.length; i++) {
+        if (appliedFilters[i] === filterToRemove) {
+            index = i;
+            break;
+        }
+    }
 
     if (index !== -1) {
-        appliedFilters.splice(index, 1);
+        
+        for (let i = index; i < appliedFilters.length - 1; i++) {
+            appliedFilters[i] = appliedFilters[i + 1];
+        }
+        appliedFilters.pop();
 
-        const filteredRecipes = appliedFilters.length > 0 ? searchFilter(recipes, appliedFilters) : search(recipes, searchTerm);
+        let filteredRecipes;
+        if (appliedFilters.length > 0) {
+            filteredRecipes = searchFilter(recipes, appliedFilters);
+        } else {
+            filteredRecipes = searchTerm.length >= 3 ? search(recipes, searchTerm) : recipes;
+        }
 
-        updatedRecipes(filteredRecipes)
-
+        updatedRecipes(filteredRecipes);
     }
 }
-const getRecipeFilters = (recipe) => {
+
+function getRecipeFilters(recipe) {
     const recipeName = recipe.name.toLowerCase();
     const recipeDescription = recipe.description.toLowerCase();
     const appliance = recipe.appliance.toLowerCase();
@@ -63,34 +109,55 @@ const getRecipeFilters = (recipe) => {
         ustensils,
         allFilters: [recipeName, ...ingredients, recipeDescription, appliance, ...ustensils]
     };
-};
+}
 
-const search = (data, searchTerm) => {
-    return data.filter(recipe => {
+function search(data, searchTerm) {
+    const results = [];
+    for (let i = 0; i < data.length; i++) {
         const {
             recipeName,
             recipeDescription,
+            appliance,
             ingredients,
-        } = getRecipeFilters(recipe);
+            ustensils
+        } = getRecipeFilters(data[i]);
 
-        return recipeName.includes(searchTerm) || ingredients.includes(searchTerm) || recipeDescription.includes(searchTerm);
-    });
-};
+        if (
+            recipeName.includes(searchTerm) ||
+            ingredients.includes(searchTerm) ||
+            recipeDescription.includes(searchTerm) ||
+            appliance.includes(searchTerm) ||
+            ustensils.includes(searchTerm)
+        ) {
+            results.push(data[i]);
+        }
+    }
+    return results;
+}
 
-const searchinFilter = (data, searchTerm) => {
-    return data.filter(recipe => {
+function searchinFilter(data, searchTerm) {
+    const results = [];
+    for (let i = 0; i < data.length; i++) {
         const {
             appliance,
             ingredients,
             ustensils
-        } = getRecipeFilters(recipe);
+        } = getRecipeFilters(data[i]);
 
-        return ingredients.includes(searchTerm) || appliance.includes(searchTerm) || ustensils.includes(searchTerm);
-    });
-};
+        if (
+            ingredients.includes(searchTerm) ||
+            appliance.includes(searchTerm) ||
+            ustensils.includes(searchTerm)
+        ) {
+            results.push(data[i]);
+        }
+    }
+    return results;
+}
 
-const searchFilter = (data, appliedFilters) => {
-    return data.filter(recipe => {
+function searchFilter(data, appliedFilters) {
+    const results = [];
+    for (let i = 0; i < data.length; i++) {
         const {
             recipeName,
             recipeDescription,
@@ -98,14 +165,17 @@ const searchFilter = (data, appliedFilters) => {
             ingredients,
             ustensils,
             allFilters
-        } = getRecipeFilters(recipe);
+        } = getRecipeFilters(data[i]);
 
         const matchedFilters = appliedFilters.filter(filter => {
             return allFilters.some(filterable => filterable.includes(filter));
         });
 
-        return matchedFilters.length === appliedFilters.length;
-    });
-};
+        if (matchedFilters.length === appliedFilters.length) {
+            results.push(data[i]);
+        }
+    }
+    return results;
+}
 
-export { researchRecipes, filterRecipes, removeFilter, searchinFilter }
+export { researchRecipes, filterRecipes, removeFilter, searchinFilter };
