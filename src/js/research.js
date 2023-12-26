@@ -7,7 +7,12 @@ import { logoClear } from "./domlinker";
 
 let appliedFilters = [];
 function researchRecipes(searchTerm, recipes) {
-    const matchingRecipes = searchTerm.length >= 3 ? search(recipes, searchTerm) : recipes
+    let filteredRecipes = recipes;
+
+    if (appliedFilters.length > 0) {
+        filteredRecipes = searchFilter(recipes, appliedFilters);
+    }
+    const matchingRecipes = searchTerm.length >= 3 ? search(filteredRecipes, searchTerm) : filteredRecipes
     matchingRecipes.length === 0 ? emptyResearch() : displayRecipes(matchingRecipes)
     totalRecipes(matchingRecipes)
     filterOptions(matchingRecipes);
@@ -43,39 +48,59 @@ function filterRecipes (selectedOption, recipes) {
 
     }
 }
+const getRecipeFilters = (recipe) => {
+    const recipeName = recipe.name.toLowerCase();
+    const recipeDescription = recipe.description.toLowerCase();
+    const appliance = recipe.appliance.toLowerCase();
+    const ingredients = recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase());
+    const ustensils = recipe.ustensils.map(ustensil => ustensil.toLowerCase());
 
-  const search = (data, searchTerm) => {
+    return {
+        recipeName,
+        recipeDescription,
+        appliance,
+        ingredients,
+        ustensils,
+        allFilters: [recipeName, ...ingredients, recipeDescription, appliance, ...ustensils]
+    };
+};
+
+const search = (data, searchTerm) => {
     return data.filter(recipe => {
-        const recipeName = recipe.name.toLowerCase();
-        const recipeDescription = recipe.description.toLowerCase();
-        const appliance = recipe.appliance.toLowerCase();
-        const ingredients = recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase());
-        const ustensils = recipe.ustensils.map(ustensil => ustensil.toLowerCase());
-        logoClear.classList.add('active')
+        const {
+            recipeName,
+            recipeDescription,
+            appliance,
+            ingredients,
+            ustensils
+        } = getRecipeFilters(recipe);
 
         return recipeName.includes(searchTerm) || ingredients.includes(searchTerm) || recipeDescription.includes(searchTerm) || appliance.includes(searchTerm) || ustensils.includes(searchTerm);
     });
-}
+};
 
-    const searchinFilter = (data, searchTerm) => {
-        return data.filter(recipe => {
-            const appliance = recipe.appliance.toLowerCase();
-            const ingredients = recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase());
-            const ustensils = recipe.ustensils.map(ustensil => ustensil.toLowerCase());
-    
-            return ingredients.includes(searchTerm) || appliance.includes(searchTerm) || ustensils.includes(searchTerm);
-        });
-    }
-
-  const searchFilter = (data, appliedFilters) => {
+const searchinFilter = (data, searchTerm) => {
     return data.filter(recipe => {
-        const recipeName = recipe.name.toLowerCase();
-        const recipeDescription = recipe.description.toLowerCase();
-        const appliance = recipe.appliance.toLowerCase();
-        const ingredients = recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase());
-        const ustensils = recipe.ustensils.map(ustensil => ustensil.toLowerCase());
+        const {
+            appliance,
+            ingredients,
+            ustensils
+        } = getRecipeFilters(recipe);
 
-        const allFilters = [recipeName, ...ingredients, recipeDescription, appliance, ...ustensils];
+        return ingredients.includes(searchTerm) || appliance.includes(searchTerm) || ustensils.includes(searchTerm);
+    });
+};
+
+const searchFilter = (data, appliedFilters) => {
+    return data.filter(recipe => {
+        const {
+            recipeName,
+            recipeDescription,
+            appliance,
+            ingredients,
+            ustensils,
+            allFilters
+        } = getRecipeFilters(recipe);
 
         const matchedFilters = appliedFilters.filter(filter => {
             return allFilters.some(filterable => filterable.includes(filter));
@@ -83,6 +108,6 @@ function filterRecipes (selectedOption, recipes) {
 
         return matchedFilters.length === appliedFilters.length;
     });
-}
+};
 
 export { researchRecipes, filterRecipes, removeFilter, searchinFilter }
