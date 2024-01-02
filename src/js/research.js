@@ -30,8 +30,7 @@ function filterRecipes (selectedOption, recipes) {
     if (!appliedFilters.includes(selectedOption)) {
         appliedFilters.push(selectedOption);
         displayTag(selectedOption);
-    } 
-
+    }
     const filteredRecipes = searchFilter(recipes, appliedFilters);
     updatedRecipes(filteredRecipes)
   };
@@ -41,11 +40,12 @@ function filterRecipes (selectedOption, recipes) {
 
     if (index !== -1) {
         appliedFilters.splice(index, 1);
-
-        const filteredRecipes = appliedFilters.length > 0 ? searchFilter(recipes, appliedFilters) : search(recipes, searchTerm);
-
-        updatedRecipes(filteredRecipes)
-
+        if (searchTerm !== '') {
+            const filteredRecipes = appliedFilters.length === 0 ? search(recipes, searchTerm) : searchFilter(recipes, appliedFilters);
+            updatedRecipes(filteredRecipes);
+        } else {
+            researchRecipes(searchTerm, recipes);
+        }
     }
 }
 const getRecipeFilters = (recipe) => {
@@ -85,7 +85,7 @@ const searchinFilter = (data, searchTerm) => {
             ustensils
         } = getRecipeFilters(recipe);
 
-        return ingredients.includes(searchTerm) || appliance.includes(searchTerm) || ustensils.includes(searchTerm);
+        return ingredients.includes(searchTerm) && appliance.includes(searchTerm) && ustensils.includes(searchTerm);
     });
 };
 

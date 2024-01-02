@@ -15,7 +15,7 @@ function displayTag(appliedFilter) {
     const tagRemove = document.createElement('i');
     tagRemove.classList.add('fa-solid', 'fa-xmark');
     tagRemove.addEventListener('click', () => {
-        removeFilter(appliedFilter, recipes,searchTerm); 
+        removeFilter(appliedFilter, recipes,researchbar.value.toLowerCase()); 
         tags.remove();
     });
 
