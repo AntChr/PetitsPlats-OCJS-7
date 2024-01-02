@@ -117,17 +117,13 @@ function search(data, searchTerm) {
         const {
             recipeName,
             recipeDescription,
-            appliance,
             ingredients,
-            ustensils
         } = getRecipeFilters(data[i]);
 
         if (
             recipeName.includes(searchTerm) ||
             ingredients.includes(searchTerm) ||
-            recipeDescription.includes(searchTerm) ||
-            appliance.includes(searchTerm) ||
-            ustensils.includes(searchTerm)
+            recipeDescription.includes(searchTerm)
         ) {
             results.push(data[i]);
         }
@@ -145,8 +141,8 @@ function searchinFilter(data, searchTerm) {
         } = getRecipeFilters(data[i]);
 
         if (
-            ingredients.includes(searchTerm) ||
-            appliance.includes(searchTerm) ||
+            ingredients.includes(searchTerm) &&
+            appliance.includes(searchTerm) &&
             ustensils.includes(searchTerm)
         ) {
             results.push(data[i]);
