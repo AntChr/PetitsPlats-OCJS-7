@@ -1,5 +1,6 @@
 import { filterRecipes } from "./research";
 import { recipes } from "../../data/recipes";
+import { researchbar } from "./domlinker";
 
 function displayFilter(options, container, name) {
   container.innerHTML = '';
@@ -55,7 +56,7 @@ function displayFilter(options, container, name) {
     });
   });
   filterItems.forEach(item => {
-    item.addEventListener('click', (e) => {filterRecipes(e.target.textContent.toLowerCase(), recipes);
+    item.addEventListener('click', (e) => {filterRecipes(e.target.textContent.toLowerCase(), recipes, researchbar.value.toLowerCase());
     });
   });
 }
