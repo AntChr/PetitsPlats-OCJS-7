@@ -6,32 +6,31 @@ import { displayTag } from "./displayTag";
 import { logoClear } from "./domlinker";
 
 let appliedFilters = [];
+
+function updatedRecipes (filteredRecipes) {
+    displayRecipes(filteredRecipes);
+    totalRecipes(filteredRecipes);
+    filterOptions(filteredRecipes);
+ }
+
 function researchRecipes(searchTerm, recipes) {
     let filteredRecipes = recipes;
-
     if (appliedFilters.length > 0) {
         filteredRecipes = searchFilter(recipes, appliedFilters);
     }
     const matchingRecipes = searchTerm.length >= 3 ? search(filteredRecipes, searchTerm) : filteredRecipes
-    matchingRecipes.length === 0 ? emptyResearch() : displayRecipes(matchingRecipes)
-    totalRecipes(matchingRecipes)
-    filterOptions(matchingRecipes);
+    matchingRecipes.length === 0 ? emptyResearch() : updatedRecipes(matchingRecipes)
     if(searchTerm ==='') {
         logoClear.classList.remove('active')
     }
 }
 
- function updatedRecipes (filteredRecipes) {
-    displayRecipes(filteredRecipes);
-    totalRecipes(filteredRecipes);
-    filterOptions(filteredRecipes);
- }
-function filterRecipes (selectedOption, recipes) {
+function filterRecipes (selectedOption, recipes, searchTerm) {
     if (!appliedFilters.includes(selectedOption)) {
         appliedFilters.push(selectedOption);
         displayTag(selectedOption);
     }
-    const filteredRecipes = searchFilter(recipes, appliedFilters);
+    const filteredRecipes = searchFilter(recipes, appliedFilters, searchTerm);
     updatedRecipes(filteredRecipes)
   };
 
@@ -41,7 +40,7 @@ function filterRecipes (selectedOption, recipes) {
     if (index !== -1) {
         appliedFilters.splice(index, 1);
         if (searchTerm !== '') {
-            const filteredRecipes = appliedFilters.length === 0 ? search(recipes, searchTerm) : searchFilter(recipes, appliedFilters);
+            const filteredRecipes = appliedFilters.length === 0 ? search(recipes, searchTerm) : searchFilter(recipes, appliedFilters, searchTerm);
             updatedRecipes(filteredRecipes);
         } else {
             researchRecipes(searchTerm, recipes);
@@ -72,7 +71,6 @@ const search = (data, searchTerm) => {
             recipeDescription,
             ingredients,
         } = getRecipeFilters(recipe);
-
         return recipeName.includes(searchTerm) || ingredients.includes(searchTerm) || recipeDescription.includes(searchTerm);
     });
 };
@@ -84,28 +82,29 @@ const searchinFilter = (data, searchTerm) => {
             ingredients,
             ustensils
         } = getRecipeFilters(recipe);
-
         return ingredients.includes(searchTerm) && appliance.includes(searchTerm) && ustensils.includes(searchTerm);
     });
 };
 
-const searchFilter = (data, appliedFilters) => {
+const searchFilter = (data, appliedFilters, searchTerm) => {
     return data.filter(recipe => {
         const {
             recipeName,
             recipeDescription,
-            appliance,
             ingredients,
-            ustensils,
             allFilters
         } = getRecipeFilters(recipe);
-
         const matchedFilters = appliedFilters.filter(filter => {
             return allFilters.some(filterable => filterable.includes(filter));
         });
-
-        return matchedFilters.length === appliedFilters.length;
+        const matchesSearchTerm = (
+            recipeName.includes(searchTerm) ||
+            ingredients.includes(searchTerm) ||
+            recipeDescription.includes(searchTerm)
+        );
+        return matchedFilters.length === appliedFilters.length && matchesSearchTerm;
     });
 };
+
 
 export { researchRecipes, filterRecipes, removeFilter, searchinFilter }
