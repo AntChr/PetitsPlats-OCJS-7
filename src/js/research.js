@@ -16,7 +16,7 @@ function updatedRecipes (filteredRecipes) {
 function researchRecipes(searchTerm, recipes) {
     let filteredRecipes = recipes;
     if (appliedFilters.length > 0) {
-        filteredRecipes = searchFilter(recipes, appliedFilters);
+        filteredRecipes = searchFilter(recipes, appliedFilters, searchTerm);
     }
     const matchingRecipes = searchTerm.length >= 3 ? search(filteredRecipes, searchTerm) : filteredRecipes
     matchingRecipes.length === 0 ? emptyResearch() : updatedRecipes(matchingRecipes)
