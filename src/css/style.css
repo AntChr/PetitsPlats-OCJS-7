@@ -9,7 +9,8 @@
   width: 100%;
   height: 960px;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.30) 100%), url(../../images/image-fonds.jpg);
-  background-size: 100% 960px;
+  background-size: cover;
+  background-position: center;
 }
 .logo {
   display: flex;
