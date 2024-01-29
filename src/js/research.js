@@ -39,6 +39,8 @@ function researchRecipes(searchTerm, recipes) {
     }
     if (searchTerm === '') {
         logoClear.classList.remove('active');
+    } else if ( searchTerm.length >= 3) {
+        logoClear.classList.add('active')
     }
 }
 
