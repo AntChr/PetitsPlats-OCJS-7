@@ -2,6 +2,7 @@ import { filterRecipes } from "./research";
 import { recipes } from "../../data/recipes";
 import { researchbar } from "./domlinker";
 
+
 function displayFilter(options, container, name) {
   container.innerHTML = '';
 
@@ -26,6 +27,16 @@ function displayFilter(options, container, name) {
   const filterSearchBar = document.createElement('input');
   filterSearchBar.setAttribute('type', 'text');
   filterSearchBar.classList.add('filter__search');
+  const filterSearchLoop = document.createElement('button');
+  filterSearchLoop.setAttribute('type', 'submit');
+  filterSearchLoop.classList.add('button_research_filter');
+  const loupeImage = document.createElement('i');
+  loupeImage.classList.add('fa-solid', 'fa-magnifying-glass');
+  const clearlogo = document.createElement('i');
+  clearlogo.classList.add('fa-solid', 'fa-xmark', 'clear__logo__filter');
+  filterSearchLoop.appendChild(clearlogo);
+  filterSearchLoop.appendChild(loupeImage);
+  filterOptionsDiv.appendChild(filterSearchLoop);
   filterOptionsDiv.appendChild(filterSearchBar);
 
   options.forEach(option => {
@@ -54,6 +65,12 @@ function displayFilter(options, container, name) {
         item.style.display = 'none';
       }
     });
+    if(e.target.value.toLowerCase().length >= 3) {
+      console.log('ok')
+      clearlogo.style.display = 'block';
+    } else {
+      clearlogo.style.display = 'none';
+    }
   });
   filterItems.forEach(item => {
     item.addEventListener('click', (e) => {filterRecipes(e.target.textContent.toLowerCase(), recipes, researchbar.value.toLowerCase());

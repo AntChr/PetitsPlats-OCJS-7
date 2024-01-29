@@ -22,6 +22,8 @@ function researchRecipes(searchTerm, recipes) {
     matchingRecipes.length === 0 ? emptyResearch() : updatedRecipes(matchingRecipes)
     if(searchTerm ==='') {
         logoClear.classList.remove('active')
+    } else if ( searchTerm.length >= 3) {
+        logoClear.classList.add('active')
     }
 }
 

@@ -54,10 +54,26 @@ h1 {
 .button__research:active {
   background-color: #FFD15B;
 }
+.button_research_filter {
+  position: absolute;
+  top: 16px;
+  right: 28px;
+  color: #8b8b8b;
+}
+.clear__logo__filter{
+  display: none;
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  margin-right: 10px;
+}
 .logo__research {
   width: 27px;
   height: 28px;
   margin: auto;
+}
+.logo__research__filter {
+  color: #8b8b8b;
 }
 .logo__clear {
   display: none;
